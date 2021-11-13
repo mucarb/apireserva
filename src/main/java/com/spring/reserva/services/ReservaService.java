@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.spring.reserva.domain.Reserva;
 import com.spring.reserva.domain.Veiculo;
+import com.spring.reserva.domain.enuns.Estado;
 import com.spring.reserva.domain.enuns.EstadoReserva;
 import com.spring.reserva.repositories.ReservaRepository;
+import com.spring.reserva.services.exceptions.DataIntegrityViolationException;
 import com.spring.reserva.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -36,7 +38,12 @@ public class ReservaService {
 		obj.setId(null);
 
 		Veiculo veiculo = veiculoService.findById(obj.getVeiculo().getId());
-		
+
+		if (veiculo.getEstado().equals(Estado.MANUTENCAO)) {
+			throw new DataIntegrityViolationException(
+					"O Veículo não está disponivel: " + veiculo.getModelo() + " Placa: " + veiculo.getPlaca());
+		}
+
 		obj.setVeiculo(veiculo);
 		obj = reservaRepository.save(obj);
 
