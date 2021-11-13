@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -41,12 +42,13 @@ public class ReservaResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Reserva> create(@Valid @RequestBody Reserva obj) {
-		obj = this.reservaService.create(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+	public ResponseEntity<Reserva> create(@Valid @RequestBody Reserva obj,
+			@RequestParam(value = "veiculo") Integer id_veiculo) {
+		obj = this.reservaService.create(obj, id_veiculo);
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/reservas/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@PutMapping(value = "/cancel/{id}")
 	public ResponseEntity<Reserva> cancel(@PathVariable Integer id) {
 		Reserva obj = reservaService.cancel(id);

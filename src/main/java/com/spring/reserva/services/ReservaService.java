@@ -34,10 +34,10 @@ public class ReservaService {
 		return reservaRepository.findAll();
 	}
 
-	public Reserva create(Reserva obj) {
+	public Reserva create(Reserva obj, Integer id_veiculo) {
 		obj.setId(null);
 
-		Veiculo veiculo = veiculoService.findById(obj.getVeiculo().getId());
+		Veiculo veiculo = veiculoService.findById(id_veiculo);
 
 		if (veiculo.getEstado().equals(Estado.MANUTENCAO)) {
 			throw new DataIntegrityViolationException(
