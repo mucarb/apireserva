@@ -47,7 +47,7 @@ public class ReservaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PutMapping(value = "cancel/{id}")
+	@PutMapping(value = "/cancel/{id}")
 	public ResponseEntity<Reserva> cancel(@PathVariable Integer id) {
 		Reserva obj = reservaService.cancel(id);
 		return ResponseEntity.ok().body(obj);
