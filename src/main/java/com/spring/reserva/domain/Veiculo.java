@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.reserva.domain.enuns.Estado;
@@ -23,13 +23,13 @@ public class Veiculo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Informe o modelo do veículo!")
+	@NotEmpty(message = "Informe o modelo do veículo!")
 	private String modelo;
 
-	@NotNull(message = "Informe a numeração da placa!")
+	@NotEmpty(message = "Informe a numeração da placa!")
 	private String placa;
 
-	@NotNull(message = "Informe o ano de fabricação!")
+	@NotEmpty(message = "Informe o ano de fabricação!")
 	private String ano;
 	
 	private Integer estado;
