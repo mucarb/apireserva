@@ -3,6 +3,7 @@ package com.spring.reserva.resources;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.spring.reserva.domain.Veiculo;
+import com.spring.reserva.dto.VeiculoDTO;
 import com.spring.reserva.services.VeiculoService;
 
 @CrossOrigin("*")
@@ -32,17 +34,19 @@ public class VeiculoResource {
 	private VeiculoService veiculoService;
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Veiculo> findById(@PathVariable Integer id) {
+	public ResponseEntity<VeiculoDTO> findById(@PathVariable Integer id) {
 		Veiculo obj = this.veiculoService.findById(id);
-		return ResponseEntity.ok().body(obj);
+		VeiculoDTO objDto = new VeiculoDTO(obj);
+		return ResponseEntity.ok().body(objDto);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Veiculo>> listAll() {
-		List<Veiculo> listObj = this.veiculoService.listAll();
-		return ResponseEntity.ok().body(listObj);
+	public ResponseEntity<List<VeiculoDTO>> listAll() {
+		List<VeiculoDTO> listDto = this.veiculoService.listAll().stream().map(obj -> new VeiculoDTO(obj))
+				.collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
-	
+
 	@GetMapping(value = "/fetch")
 	public ResponseEntity<List<Veiculo>> findAllDisponivel(
 			@RequestParam("datainicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,

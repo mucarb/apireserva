@@ -2,6 +2,7 @@ package com.spring.reserva.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.spring.reserva.domain.Reserva;
+import com.spring.reserva.dto.ReservaDTO;
 import com.spring.reserva.services.ReservaService;
 
 @CrossOrigin("*")
@@ -29,15 +31,15 @@ public class ReservaResource {
 	private ReservaService reservaService;
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Reserva> findById(@PathVariable Integer id) {
-		Reserva obj = this.reservaService.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<ReservaDTO> findById(@PathVariable Integer id) {
+		ReservaDTO objDto = new ReservaDTO(reservaService.findById(id));
+		return ResponseEntity.ok().body(objDto);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Reserva>> listAll() {
-		List<Reserva> listObj = this.reservaService.listAll();
-		return ResponseEntity.ok().body(listObj);
+	public ResponseEntity<List<ReservaDTO>> listAll() {
+		List<ReservaDTO> listDto = this.reservaService.listAll().stream().map(obj -> new ReservaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@PostMapping
