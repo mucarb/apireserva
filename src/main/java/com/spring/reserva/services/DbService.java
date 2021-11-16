@@ -43,7 +43,7 @@ public class DbService {
 		Reserva r3 = new Reserva(null, LocalDateTime.parse("16/11/2021 12:00", formatter),
 				LocalDateTime.parse("18/11/2021 10:30", formatter), v4, EstadoReserva.CONFIRMADA);
 		Reserva r4 = new Reserva(null, LocalDateTime.parse("20/11/2021 09:30", formatter),
-				LocalDateTime.parse("20/11/2021 18:00", formatter), v5, EstadoReserva.CANCELADA);
+				LocalDateTime.parse("20/11/2021 18:00", formatter), v5, EstadoReserva.PROVISORIA);
 
 		this.reservaRepository.saveAll(Arrays.asList(r1, r2, r3, r4));
 

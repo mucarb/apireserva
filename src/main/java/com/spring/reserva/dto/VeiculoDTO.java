@@ -24,8 +24,12 @@ public class VeiculoDTO implements Serializable {
 
 	private Integer estado;
 
+	
+	
+	public VeiculoDTO() {
+	}
+
 	public VeiculoDTO(Veiculo obj) {
-		super();
 		this.id = obj.getId();
 		this.modelo = obj.getModelo();
 		this.placa = obj.getPlaca();

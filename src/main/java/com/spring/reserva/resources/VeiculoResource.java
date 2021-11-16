@@ -48,11 +48,12 @@ public class VeiculoResource {
 	}
 
 	@GetMapping(value = "/fetch")
-	public ResponseEntity<List<Veiculo>> findAllDisponivel(
+	public ResponseEntity<List<VeiculoDTO>> findAllDisponivel(
 			@RequestParam("datainicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
 			@RequestParam("datafim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim) {
 		List<Veiculo> listObj = this.veiculoService.findAllDisponivel(dataInicio, dataFim);
-		return ResponseEntity.ok().body(listObj);
+		List<VeiculoDTO> listDto = listObj.stream().map(obj -> new VeiculoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@PostMapping

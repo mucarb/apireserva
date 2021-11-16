@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spring.reserva.domain.enuns.EstadoReserva;
 
@@ -25,13 +27,16 @@ public class Reserva implements Serializable {
 
 	@NotNull(message = "Informe a data de início da reserva!")
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat
 	private LocalDateTime inicioReserva;
 
 	@NotNull(message = "Informe a data do fim da reserva!")
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat
 	private LocalDateTime fimReserva;
 
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat
 	private LocalDateTime cancelamentoReserva;
 
 	@ManyToOne

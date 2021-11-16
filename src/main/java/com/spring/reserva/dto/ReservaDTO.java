@@ -3,6 +3,10 @@ package com.spring.reserva.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spring.reserva.domain.Reserva;
 import com.spring.reserva.domain.enuns.EstadoReserva;
@@ -13,17 +17,25 @@ public class ReservaDTO implements Serializable {
 
 	private Integer id;
 
+	@NotNull(message = "Informe a data de início da reserva!")
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat
 	private LocalDateTime inicioReserva;
 
+	@NotNull(message = "Informe a data do fim da reserva!")
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat
 	private LocalDateTime fimReserva;
 
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat
 	private LocalDateTime cancelamentoReserva;
 
 	private Integer veiculo;
 	private Integer estadoReserva;
+
+	public ReservaDTO() {
+	}
 
 	public ReservaDTO(Reserva obj) {
 		this.id = obj.getId();
@@ -81,5 +93,12 @@ public class ReservaDTO implements Serializable {
 	public void setEstadoReserva(EstadoReserva estadoReserva) {
 		this.estadoReserva = estadoReserva.getCod();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ReservaDTO [id=" + id + ", inicioReserva=" + inicioReserva + ", fimReserva=" + fimReserva
+				+ ", cancelamentoReserva=" + cancelamentoReserva + ", veiculo=" + veiculo + ", estadoReserva="
+				+ estadoReserva + "]";
+	}
+		
 }

@@ -43,8 +43,8 @@ public class ReservaResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Reserva> create(@Valid @RequestBody Reserva obj) {
-		obj = this.reservaService.create(obj);
+	public ResponseEntity<ReservaDTO> create(@Valid @RequestBody ReservaDTO obj) {
+		obj = new ReservaDTO(this.reservaService.create(obj));
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
